@@ -4,6 +4,7 @@ this will be a gem soonish...
 
 Based on
 
+http://techblog.thescore.com/benchmarking-json-generation-in-ruby/#comment-1678429451
 https://github.com/chetan/json_serialization_benchmark/tree/api_view
 
 
