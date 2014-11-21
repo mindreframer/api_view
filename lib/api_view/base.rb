@@ -9,6 +9,10 @@ module ApiView
         ApiView.add_model(model, self)
       end
 
+      def render(obj, scope, options={})
+        ApiView::Engine.render(obj, scope, options)
+      end
+
       def parent_attributes
         parent = self.superclass
         return [] if parent.name == "ApiView::Base"
