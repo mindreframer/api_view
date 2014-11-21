@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "oj"
   spec.add_development_dependency "multi_json"
   spec.add_development_dependency "ffaker"
+  spec.add_development_dependency "pry"
 end
