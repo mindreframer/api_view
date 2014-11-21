@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+require 'rake/testtask'
+
+pattern = "{test,lib/**/__tests__}/**/**_test.rb"
+
+if ARGV[0]
+  regex         = %r[#{ARGV[0]}]
+  all_tests = (Dir[pattern]).grep(regex)
+end
+Rake::TestTask.new("my_test") do |test|
+  if all_tests
+    test.test_files = all_tests
+  else
+    test.pattern = pattern
+  end
+  test.verbose = true
+end
+
+Rake::Task['my_test'].invoke
