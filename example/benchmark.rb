@@ -23,7 +23,7 @@ module SerializationBenchmark
 
     b.report('ApiView Simple') do
       sample_size.times do
-        ApiView::Engine.render(event, nil, :format => "json", :use => EventSummaryApiView)
+        EventSummaryApiView.render(event, nil, :format => "json")
       end
     end
 
@@ -31,7 +31,7 @@ module SerializationBenchmark
 
     b.report('ApiView Complex') do
       sample_size.times do
-        ApiView::Engine.render(event, nil, :format => "json", :use => BasketballEventApiView)
+        BasketballEventApiView.render(event, nil, :format => "json")
       end
     end
   end
@@ -44,6 +44,7 @@ module SerializationBenchmark
 
     b.report('ApiView Ultra Simple: Collection') do
       sample_size.times do
+        # automatic view class recognition
         ApiView::Engine.render(team_collection, nil, :format => "json")
       end
     end
@@ -52,7 +53,7 @@ module SerializationBenchmark
 
     b.report('ApiView Simple: Collection') do
       sample_size.times do
-        ApiView::Engine.render(event_collection, nil, :format => "json", :use => EventSummaryApiView)
+        EventSummaryApiView.render(event_collection, nil, :format => "json")
       end
     end
 
@@ -60,7 +61,8 @@ module SerializationBenchmark
 
     b.report('ApiView Complex: Collection') do
       sample_size.times do
-        ApiView::Engine.render(event_collection, nil, :format => "json", :use => BasketballEventApiView)
+        EventSummaryApiView.render(event_collection, nil, :format => "json")
+
       end
     end
   end
