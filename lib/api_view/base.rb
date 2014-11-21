@@ -10,6 +10,7 @@ module ApiView
       end
 
       def render(obj, scope, options={})
+        options[:use] = self
         ApiView::Engine.render(obj, scope, options)
       end
 

@@ -1,16 +1,12 @@
 require './test/test_helper'
 
 describe 'hey' do
+  class TestApiView < ::ApiView::Base
+    attributes :abbreviation, :full_name, :location
+  end
+
   it "works" do
-    (1+1).must_equal 2
-
-
-    event = EventFactory.build_event
-    team  = event.home_team
-
-    event_collection = collection_size.times.map { event }
-    team_collection  = collection_size.times.map { team }
-
-
+    obj = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
+    TestApiView.render(obj, nil).must_equal "{\"abbreviation\":\"hey\",\"full_name\":\"full name\",\"location\":\"loc\"}"
   end
 end
