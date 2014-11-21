@@ -1,6 +1,3 @@
-
-require "api_view/views/event"
-
 class BasketballEventApiView < EventApiView
 
   attributes :important, :location

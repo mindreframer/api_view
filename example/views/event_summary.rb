@@ -1,4 +1,3 @@
-
 class EventSummaryApiView < ::ApiView::Base
 
   attributes :game_date, :game_type, :status

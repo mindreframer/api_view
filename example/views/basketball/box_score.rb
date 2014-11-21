@@ -1,7 +1,3 @@
-
-require "api_view/views/box_score"
-require "api_view/views/basketball/play_by_play_record"
-
 class BasketballBoxScoreApiView < BoxScoreApiView
 
   attributes :attendance, :referees

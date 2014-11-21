@@ -1,6 +1,3 @@
-
-require "api_view/views/event_summary"
-
 class EventApiView < EventSummaryApiView
 
   for_model ::Event
