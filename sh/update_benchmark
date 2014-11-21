@@ -1,1 +1,33 @@
-ruby example/benchmark.rb > benchmark_results.md
+#!/usr/bin/env ruby
+
+class Updater
+  def run
+    run_benchmark
+    fix_formatting
+  end
+
+  def run_benchmark
+    exec('ruby example/benchmark.rb > benchmark_results.md')
+  end
+
+  def fix_formatting
+    name = 'benchmark_results.md'
+    c = File.read(name)
+    new_c = c.split("\n").map{|l|
+      if l == ''
+        ''
+      else
+        (" " * 4) + l
+      end
+    }.join("\n")
+    File.open(name, 'w') do |f|
+      f.puts new_c
+    end
+  end
+
+  def exec(cmd)
+    `#{cmd}`
+  end
+end
+
+Updater.new.run
