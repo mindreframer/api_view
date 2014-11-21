@@ -21,7 +21,7 @@ module SerializationBenchmark
   team  = event.home_team
 
   event_collection = collection_size.times.map { event }
-  team_collection  = collection_size.times.map { team }
+  team_collection  = collection_size.times.map { EventFactory.home_team }
 
   Benchmark.benchmark(Benchmark::CAPTION, 40) do |b|
     sample_size  = 10_000

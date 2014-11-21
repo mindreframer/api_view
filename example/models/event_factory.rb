@@ -1,37 +1,6 @@
+require 'ffaker'
 class EventFactory
   def self.build_event
-    last_play = PlayByPlayRecord.new(
-      points_type: 'Field Goal',
-      player_fouls: 10,
-      player_score: 15,
-      record_type: 'Postseason',
-      seconds: 100
-    )
-
-    box_score = BoxScore.new(
-      last_play: last_play,
-      attendance: '21,307',
-      has_statistics: true,
-      progress: '11:23 2nd',
-      referees: 'Thuva, Nate, Roel'
-    )
-
-    home_team = Team.new(
-      abbreviation: 'TOR',
-      full_name: 'Toronto Raptors',
-      location: 'Toronto',
-      medium_name: 'Toronto',
-      short_name: 'Raptors'
-    )
-
-    away_team = Team.new(
-      abbreviation: 'MIA',
-      full_name: 'Miami Heats',
-      location: 'Miami',
-      meidum_name: 'Miami',
-      short_name: 'Heats'
-    )
-
     Event.new(
       away_team: away_team,
       box_score: box_score,
@@ -47,6 +16,46 @@ class EventFactory
       share_url: 'http://thesco.re/123',
       sport_name: 'basketball',
       status: 'Final'
+    )
+  end
+
+  def self.last_play
+    PlayByPlayRecord.new(
+      points_type: 'Field Goal',
+      player_fouls: 10,
+      player_score: 15,
+      record_type: 'Postseason',
+      seconds: 100
+    )
+  end
+
+  def self.box_score
+    BoxScore.new(
+      last_play: last_play,
+      attendance: '21,307',
+      has_statistics: true,
+      progress: '11:23 2nd',
+      referees: 'Thuva, Nate, Roel'
+    )
+  end
+
+  def self.away_team
+    Team.new(
+      abbreviation: 'MIA',
+      full_name: Faker::Name.name,
+      location: Faker::AddressUS.state,
+      meidum_name: 'Miami',
+      short_name: 'Heats'
+    )
+  end
+
+  def self.home_team
+    Team.new(
+      abbreviation: 'TOR',
+      full_name: Faker::Name.name,
+      location: Faker::AddressUS.state,
+      medium_name: Faker::AddressUS.state,
+      short_name: 'Raptors'
     )
   end
 end
