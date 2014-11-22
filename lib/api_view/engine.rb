@@ -2,7 +2,7 @@
 module ApiView
   class Engine
 
-    # Classes which
+    # Classes which require no further conversion
     BASIC_TYPES = [ String, Integer, Fixnum, Bignum, Float,
                     TrueClass, FalseClass,
                     Time, Date, DateTime ]
@@ -19,12 +19,10 @@ module ApiView
       #
       # @return [String]
       def render(obj, scope, options={})
-
         ret = convert(obj, options)
 
-        if ret.kind_of? String then
-          return ret # already converted (by default converter, for ex)
-        end
+        # already converted (by default converter, for ex)
+        return ret if ret.kind_of? String
 
         # TODO cache_results { self.send("to_" + format.to_s) }
         format = options[:format] || self.request_format(scope)
@@ -38,9 +36,8 @@ module ApiView
       # @return [Object]
       def convert(obj, options=nil)
 
-        if BASIC_TYPES_LOOKUP.include? obj.class then
-          return obj # already converted
-        end
+         # already converted
+        return obj if BASIC_TYPES_LOOKUP.include?(obj.class)
 
         if obj.kind_of?(Hash) then
           ret = {}
