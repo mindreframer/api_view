@@ -39,7 +39,7 @@ module ApiView
         return obj                              if BASIC_TYPES_LOOKUP.include?(obj.class)
         return convert_hash(obj)                if obj.kind_of?(Hash)
         return convert_enumerable(obj, options) if obj.respond_to?(:map)
-        return converter_for(obj.class, options).new(obj).convert
+        return convert_custom_type(obj, options)
       end
 
       def convert_hash(obj)
@@ -55,6 +55,10 @@ module ApiView
         else
           return obj.map { |o| convert(o, options) }
         end
+      end
+
+      def convert_custom_type(obj, options)
+        converter_for(obj.class, options).new(obj).convert
       end
 
       def converter_for(klazz, options)
