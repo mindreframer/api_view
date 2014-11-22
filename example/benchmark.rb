@@ -1,4 +1,5 @@
 require './example/require_models'
+require 'ruby-prof'
 
 module SerializationBenchmark
   collection_size = 100
@@ -7,6 +8,17 @@ module SerializationBenchmark
 
   event_collection = collection_size.times.map { event }
   team_collection  = collection_size.times.map { EventFactory.home_team }
+
+
+  module ProfHelper
+    def with_profiler()
+      RubyProf.start
+      yield
+      result  = RubyProf.stop
+      printer = RubyProf::FlatPrinter.new(result)
+      printer.print(STDOUT, :min_percent => 2)
+    end
+  end
 
   Benchmark.benchmark(Benchmark::CAPTION, 40) do |b|
     sample_size  = 10_000
@@ -39,6 +51,7 @@ module SerializationBenchmark
   puts "\n\n"
 
   Benchmark.benchmark(Benchmark::CAPTION, 40) do |b|
+    extend ProfHelper
     sample_size  = 100
     divider_size = 86
 
@@ -60,9 +73,10 @@ module SerializationBenchmark
     puts '-' * divider_size
 
     b.report('ApiView Complex: Collection') do
-      sample_size.times do
-        EventSummaryApiView.render(event_collection, nil, :format => "json")
-
+      with_profiler do
+        sample_size.times do
+          EventSummaryApiView.render(event_collection, nil, :format => "json")
+        end
       end
     end
   end
