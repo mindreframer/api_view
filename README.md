@@ -7,7 +7,7 @@ a small and very performance focused serializer for complex nested objects. The 
 
 
 
-## Why should you even care? Are (... insert your favourite ruby serializer ) not good enough?
+### Why should you even care? Is (... insert your favourite ruby serializer ... ) not good enough?
 
 Well, all those gems are fine, if you don't care about the raw numbers and want only a nice way to convert your objects to Json or XML. With the recent advent of Single Page Application with heavy requirements for JSON APIs I'd like to squeeze all the performance that is possible while staying in the comfort of Ruby lang. And I want those serializers to be fast and easy to test.
 
