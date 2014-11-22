@@ -6,12 +6,12 @@ describe '#render' do
   end
 
   it "works" do
-    obj = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
-    RenderTestApiView.render(obj, nil).must_equal "{\"abbreviation\":\"hey\",\"full_name\":\"full name\",\"location\":\"loc\"}"
+    obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
+    res      = RenderTestApiView.render(obj, nil)
+    expected = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc"}
+    MultiJson.load(res).must_equal expected
   end
 end
-
-
 
 describe '#convert' do
   class ConvertTestApiView < ::ApiView::Base
@@ -23,8 +23,8 @@ describe '#convert' do
   end
 
   it "works" do
-    obj = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
-    res = ConvertTestApiView.render(obj, nil)
+    obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
+    res      = ConvertTestApiView.render(obj, nil)
     expected = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc", "away_team"=>"away_team"}
     MultiJson.load(res).must_equal expected
   end
