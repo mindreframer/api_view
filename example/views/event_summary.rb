@@ -1,12 +1,11 @@
 class EventSummaryApiView < ::ApiView::Base
 
   attributes :game_date, :game_type, :status
+  main_object :event
 
-  def convert
-    super
-    store :away_team, BasketballTeamApiView.new(obj.away_team).convert
-    store :home_team, BasketballTeamApiView.new(obj.home_team).convert
-    self
+  def convert_instance
+    store :away_team, event.away_team, via: BasketballTeamApiView
+    store :home_team, event.home_team, via: BasketballTeamApiView
   end
 
 end

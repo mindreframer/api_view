@@ -1,18 +1,15 @@
 class BasketballEventApiView < EventApiView
 
   attributes :important, :location
-  alias_method :event, :object
+  main_object :event
 
-  def convert
-    super
+  def convert_instance
     if event.ncaa? then
       store :away_ranking, event.away_ranking
       store :away_region,  event.away_region
       store :home_ranking, event.home_ranking
       store :home_region,  event.home_region
     end
-
-    self
   end
 
 end

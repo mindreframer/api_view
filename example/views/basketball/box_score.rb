@@ -4,10 +4,8 @@ class BasketballBoxScoreApiView < BoxScoreApiView
   main_object :box_score
 
 
-  def convert
-    super
-    store :last_play, BasketballPlayByPlayRecordApiView.new(box_score.last_play).convert
-    self
+  def convert_instance
+    store :last_play, box_score.last_play, via: BasketballPlayByPlayRecordApiView
   end
 
 end

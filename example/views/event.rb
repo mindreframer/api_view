@@ -2,12 +2,10 @@ class EventApiView < EventSummaryApiView
 
   for_model ::Event
   attributes :share_url, :sport_name
-  alias_method :event, :object
+  main_object :event
 
-  def convert
-    super
-    store :box_score, BasketballBoxScoreApiView.new(event.box_score).convert
-    self
+  def convert_instance
+    store :box_score, event.box_score, via: BasketballBoxScoreApiView
   end
 
 end
