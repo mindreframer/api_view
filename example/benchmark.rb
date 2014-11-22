@@ -1,5 +1,7 @@
 require './example/require_models'
-require 'ruby-prof'
+# require 'ruby-prof'
+# require 'allocation_stats'
+require 'bixby/bench'
 
 module SerializationBenchmark
   collection_size = 100
@@ -9,75 +11,33 @@ module SerializationBenchmark
   event_collection = collection_size.times.map { event }
   team_collection  = collection_size.times.map { EventFactory.home_team }
 
+  puts "\nObject tests:\n"
+  Bixby::Bench.run(10_000) do |b|
+    b.sample('ApiView Ultra Simple') do
+      ApiView::Engine.render(team)
+    end
 
-  module ProfHelper
-    def with_profiler()
-      RubyProf.start
-      yield
-      result  = RubyProf.stop
-      printer = RubyProf::FlatPrinter.new(result)
-      printer.print(STDOUT, :min_percent => 2)
+    b.sample('ApiView Simple') do
+      EventSummaryApiView.render(event)
+    end
+
+    b.sample('ApiView Complex') do
+      BasketballEventApiView.render(event)
     end
   end
 
-  Benchmark.benchmark(Benchmark::CAPTION, 40) do |b|
-    sample_size  = 10_000
-    divider_size = 86
-
-
-    b.report('ApiView Ultra Simple') do
-      sample_size.times do
-        ApiView::Engine.render(team, nil, :format => "json")
-      end
+  puts "\n\nCollection tests:\n"
+  Bixby::Bench.run(100) do |b|
+    b.sample('ApiView Ultra Simple: Collection') do
+      ApiView::Engine.render(team_collection)
     end
 
-    puts '-' * divider_size
-
-    b.report('ApiView Simple') do
-      sample_size.times do
-        EventSummaryApiView.render(event, nil, :format => "json")
-      end
+    b.sample('ApiView Simple: Collection') do
+      EventSummaryApiView.render(event_collection)
     end
 
-    puts '-' * divider_size
-
-    b.report('ApiView Complex') do
-      sample_size.times do
-        BasketballEventApiView.render(event, nil, :format => "json")
-      end
-    end
-  end
-
-  puts "\n\n"
-
-  Benchmark.benchmark(Benchmark::CAPTION, 40) do |b|
-    extend ProfHelper
-    sample_size  = 100
-    divider_size = 86
-
-    b.report('ApiView Ultra Simple: Collection') do
-      sample_size.times do
-        # automatic view class recognition
-        ApiView::Engine.render(team_collection, nil, :format => "json")
-      end
-    end
-
-    puts '-' * divider_size
-
-    b.report('ApiView Simple: Collection') do
-      sample_size.times do
-        EventSummaryApiView.render(event_collection, nil, :format => "json")
-      end
-    end
-
-    puts '-' * divider_size
-
-    b.report('ApiView Complex: Collection') do
-      with_profiler do
-        sample_size.times do
-          EventSummaryApiView.render(event_collection, nil, :format => "json")
-        end
-      end
+    b.sample('ApiView Complex: Collection') do
+      BasketballEventApiView.render(event_collection)
     end
   end
 end
