@@ -10,7 +10,7 @@ describe 'ApiView::Base' do
 
       it "works" do
         obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
-        res      = RenderTestApiView.render(obj, nil)
+        res      = RenderTestApiView.render(obj)
         expected = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc"}
         MultiJson.load(res).must_equal expected
       end
@@ -40,7 +40,7 @@ describe 'ApiView::Base' do
       it "works" do
         simple_view = OpenStruct.new(some_value: 'very simple value')
         obj         = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc', simple_view: simple_view)
-        res         = ConvertTestApiView.render(obj, nil)
+        res         = ConvertTestApiView.render(obj)
         expected    = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc", "away_team"=>"away_team", "simple_view"=>{"some_value"=>"very simple value", "simple"=>true}}
         MultiJson.load(res).must_equal expected
       end
