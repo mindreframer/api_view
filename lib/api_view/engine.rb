@@ -18,7 +18,7 @@ module ApiView
       # @param [Object] obj
       # @param [ActionDispatch::Request] scope
       # @param [Hash] options
-      # @option options [String] :format    Request a particular format ("json" or "xml")
+      # @option options [String] :format Request a particular format ("json" or "xml")
       #
       # @return [String]
       def render(obj, scope, options={})
@@ -55,7 +55,7 @@ module ApiView
       end
 
       def convert_enumerable(obj, options)
-        if (options.count == 0) or !options[:cache_array] then
+        if (options.count == 0) then
           converter = converter_for(obj.first.class, options)
           return obj.map { |o| converter.new(o).convert }
         else
