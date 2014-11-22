@@ -69,8 +69,10 @@ module ApiView
       self
     end
 
-    def render(obj, options)
-      Engine.convert(obj, options)
+    # hides the details for serialization implementation
+    def field(fieldname, field_object, opts={})
+      serializer = opts[:via]  || ApiView::Default
+      store fieldname, serializer.new(field_object).convert
     end
 
   end
