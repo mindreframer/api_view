@@ -36,10 +36,14 @@ module ApiView
       # @return [Object]
       def convert(obj, options=nil)
          # already converted
-        return obj                              if BASIC_TYPES_LOOKUP.include?(obj.class)
+        return obj                              if is_basic_type?(obj)
         return convert_hash(obj)                if obj.kind_of?(Hash)
         return convert_enumerable(obj, options) if obj.respond_to?(:map)
         return convert_custom_type(obj, options)
+      end
+
+      def is_basic_type?(obj)
+        BASIC_TYPES_LOOKUP.include?(obj.class)
       end
 
       def convert_hash(obj)
@@ -87,6 +91,5 @@ module ApiView
       end
 
     end
-
-  end # Engine
-end # ApiView
+  end
+end
