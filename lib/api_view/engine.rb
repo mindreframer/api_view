@@ -3,11 +3,13 @@ module ApiView
   class Engine
 
     # Classes which require no further conversion
-    BASIC_TYPES = [ String, Integer, Fixnum, Bignum, Float,
-                    TrueClass, FalseClass,
-                    Time, Date, DateTime ]
+    BASIC_TYPES = [
+      String, Integer, Fixnum, Bignum, Float,
+      TrueClass, FalseClass,
+      Time, Date, DateTime
+    ]
     BASIC_TYPES_LOOKUP = BASIC_TYPES.to_set
-    DEFAULT_FORMAT = 'json'.freeze
+    DEFAULT_FORMAT     = 'json'.freeze
 
     class << self
 
@@ -36,7 +38,6 @@ module ApiView
       # @param [Object] obj
       # @return [Object]
       def convert(obj, options=nil)
-         # already converted
         return obj                              if is_basic_type?(obj)
         return convert_hash(obj)                if obj.kind_of?(Hash)
         return convert_enumerable(obj, options) if obj.respond_to?(:map)
@@ -83,7 +84,7 @@ module ApiView
       # Returns a guess at the format in this scope
       # request_format => "xml"
       def request_format(scope)
-        format = format_from_params(scope)
+        format   = format_from_params(scope)
         format ||= format_from_request(scope)
         return format if (format && self.respond_to?("to_#{format}"))
         DEFAULT_FORMAT
