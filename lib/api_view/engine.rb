@@ -24,7 +24,7 @@ module ApiView
       def render(obj, scope={}, options={})
         ret = convert(obj, options)
         # skip the serialization, useful for extra-speed in unit-tests
-        return ret if options[:no_serialization]
+        return ret if (options[:skip_serialization] || @skip_serialization)
 
         # already converted (by default converter, for ex)
         return ret if ret.kind_of? String
@@ -32,6 +32,10 @@ module ApiView
         # TODO cache_results { self.send("to_" + format.to_s) }
         format = options[:format] || self.request_format(scope)
         self.send("to_" + format.to_s, ret)
+      end
+
+      def skip_serialization=(value)
+        @skip_serialization = value
       end
 
       # Convert the given object into a hash, array or other simple type

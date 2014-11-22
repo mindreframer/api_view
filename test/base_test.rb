@@ -18,9 +18,18 @@ describe 'ApiView::Base' do
 
       it "returns hash instance, if serialization is disabled" do
         obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
-        res      = RenderTestApiView.render(obj, {}, {no_serialization: true})
+        res      = RenderTestApiView.render(obj, {}, {skip_serialization: true})
         expected = {abbreviation: "hey", full_name: "full name", location: "loc"}
         res.must_equal expected
+      end
+
+      it "also returns a hash, if global serialization is skipped" do
+        ApiView::Engine.skip_serialization = true
+        obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
+        res      = RenderTestApiView.render(obj)
+        expected = {abbreviation: "hey", full_name: "full name", location: "loc"}
+        res.must_equal expected
+        ApiView::Engine.skip_serialization = false
       end
     end
 
