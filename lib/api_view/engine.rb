@@ -24,8 +24,7 @@ module ApiView
       def render(obj, scope={}, options={})
         ret = convert(obj, options)
         # skip the serialization, useful for extra-speed in unit-tests
-        should_skip = options.fetch(:skip_serialization) { @skip_serialization }
-        return ret if should_skip
+        return ret if should_skip?(options)
 
         # already converted (by default converter, for ex)
         return ret if ret.kind_of? String
@@ -33,6 +32,10 @@ module ApiView
         # TODO cache_results { self.send("to_" + format.to_s) }
         format = options[:format] || self.request_format(scope)
         self.send("to_" + format.to_s, ret)
+      end
+
+      def should_skip?(options)
+        options.fetch(:skip_serialization) { @skip_serialization }
       end
 
       def skip_serialization=(value)
