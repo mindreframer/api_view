@@ -8,7 +8,7 @@ module ApiView
         ApiView::Registry.add_model(model, self)
       end
 
-      def render(obj, scope, options={})
+      def render(obj, scope={}, options={})
         options[:use] = self
         ApiView::Engine.render(obj, scope, options)
       end

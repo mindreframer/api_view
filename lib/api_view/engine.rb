@@ -21,7 +21,7 @@ module ApiView
       # @option options [String] :format Request a particular format ("json" or "xml")
       #
       # @return [String]
-      def render(obj, scope, options={})
+      def render(obj, scope={}, options={})
         ret = convert(obj, options)
 
         # already converted (by default converter, for ex)
