@@ -1,7 +1,8 @@
 class BasketballBoxScoreApiView < BoxScoreApiView
 
   attributes :attendance, :referees
-  alias_method :box_score, :object
+  main_object :box_score
+
 
   def convert
     super

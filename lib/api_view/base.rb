@@ -19,6 +19,11 @@ module ApiView
         return parent.instance_variable_get(:@attributes)
       end
 
+
+      def main_object(main_object_name)
+        alias_method main_object_name, :object
+      end
+
       # defines the basic (flat) fields that will be copied from the main object
       def attributes(*attrs)
         @attributes ||= []
