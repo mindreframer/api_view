@@ -19,8 +19,8 @@ module ApiView
         return parent.instance_variable_get(:@attributes)
       end
 
+      # defines the basic (flat) fields that will be copied from the main object
       def attributes(*attrs)
-
         @attributes ||= []
         @attributes = (@attributes + attrs).flatten
         parent_attributes.reverse.each do |a|
@@ -58,14 +58,15 @@ module ApiView
       # no-op by default
     end
 
+    # this is the method that is supposed to be overriden in the subclass
+    def instance_convert
+      # no-op by default, override in you subclass
+    end
+
     def convert
       collect_attributes()
       instance_convert
       self
-    end
-
-    def instance_convert
-      # no-op by default, override in you subclass
     end
 
     def render(obj, options)
