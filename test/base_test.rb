@@ -16,10 +16,9 @@ end
 describe '#convert' do
   class ConvertTestApiView < ::ApiView::Base
     attributes :abbreviation, :full_name, :location
-    def convert
-      super
+
+    def instance_convert
       store :away_team, 'away_team'
-      self
     end
   end
 

@@ -42,7 +42,6 @@ module ApiView
         end
         code << "end"
         class_eval(code.join("\n"))
-
       end
       alias_method :attrs, :attributes
 
@@ -62,7 +61,12 @@ module ApiView
 
     def convert
       collect_attributes()
+      instance_convert
       self
+    end
+
+    def instance_convert
+      # no-op by default, override in you subclass
     end
 
     def render(obj, options)
