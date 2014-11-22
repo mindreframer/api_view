@@ -1,41 +1,49 @@
 require './test/test_helper'
 
-describe '#render' do
-  class RenderTestApiView < ::ApiView::Base
-    attributes :abbreviation, :full_name, :location
-  end
+describe 'ApiView::Base' do
 
-  it "works" do
-    obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
-    res      = RenderTestApiView.render(obj, nil)
-    expected = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc"}
-    MultiJson.load(res).must_equal expected
-  end
-end
+  describe 'class methods' do
+    describe '#render' do
+      class RenderTestApiView < ::ApiView::Base
+        attributes :abbreviation, :full_name, :location
+      end
 
-describe '#convert' do
-  class ConvertSimpleApiView < ::ApiView::Base
-    attributes :some_value
-
-    def instance_convert
-      field :simple, true
+      it "works" do
+        obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
+        res      = RenderTestApiView.render(obj, nil)
+        expected = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc"}
+        MultiJson.load(res).must_equal expected
+      end
     end
   end
 
-  class ConvertTestApiView < ::ApiView::Base
-    attributes :abbreviation, :full_name, :location
+  describe 'instance methods' do
 
-    def instance_convert
-      field :away_team, 'away_team'
-      field :simple_view, object.simple_view, via: ConvertSimpleApiView
+    describe '#convert' do
+      class ConvertSimpleApiView < ::ApiView::Base
+        attributes :some_value
+
+        def instance_convert
+          field :simple, true
+        end
+      end
+
+      class ConvertTestApiView < ::ApiView::Base
+        attributes :abbreviation, :full_name, :location
+
+        def instance_convert
+          field :away_team, 'away_team'
+          field :simple_view, object.simple_view, via: ConvertSimpleApiView
+        end
+      end
+
+      it "works" do
+        simple_view = OpenStruct.new(some_value: 'very simple value')
+        obj         = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc', simple_view: simple_view)
+        res         = ConvertTestApiView.render(obj, nil)
+        expected    = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc", "away_team"=>"away_team", "simple_view"=>{"some_value"=>"very simple value", "simple"=>true}}
+        MultiJson.load(res).must_equal expected
+      end
     end
-  end
-
-  it "works" do
-    simple_view = OpenStruct.new(some_value: 'very simple value')
-    obj         = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc', simple_view: simple_view)
-    res         = ConvertTestApiView.render(obj, nil)
-    expected    = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc", "away_team"=>"away_team", "simple_view"=>{"some_value"=>"very simple value", "simple"=>true}}
-    MultiJson.load(res).must_equal expected
   end
 end
