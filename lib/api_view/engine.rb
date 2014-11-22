@@ -23,6 +23,8 @@ module ApiView
       # @return [String]
       def render(obj, scope={}, options={})
         ret = convert(obj, options)
+        # skip the serialization, useful for extra-speed in unit-tests
+        return ret if options[:no_serialization]
 
         # already converted (by default converter, for ex)
         return ret if ret.kind_of? String
@@ -39,7 +41,7 @@ module ApiView
       # @return [Object]
       def convert(obj, options=nil)
         return obj                              if is_basic_type?(obj)
-        return convert_hash(obj)                if obj.kind_of?(Hash)
+        return convert_hash(obj, options)       if obj.kind_of?(Hash)
         return convert_enumerable(obj, options) if obj.respond_to?(:map)
         return convert_custom_type(obj, options)
       end
@@ -48,9 +50,9 @@ module ApiView
         BASIC_TYPES_LOOKUP.include?(obj.class)
       end
 
-      def convert_hash(obj)
+      def convert_hash(obj, options)
         ret = {}
-        obj.each{ |k,v| ret[k] = convert(v) }
+        obj.each{ |k,v| ret[k] = convert(v, options) }
         ret
       end
 

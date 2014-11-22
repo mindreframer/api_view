@@ -8,12 +8,24 @@ describe 'ApiView::Base' do
         attributes :abbreviation, :full_name, :location
       end
 
-      it "works" do
+      it "renders json by default" do
         obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
         res      = RenderTestApiView.render(obj)
         expected = {"abbreviation"=>"hey", "full_name"=>"full name", "location"=>"loc"}
         MultiJson.load(res).must_equal expected
       end
+
+
+      it "returns hash instance, if serialization is disabled" do
+        obj      = OpenStruct.new(abbreviation: 'hey', full_name: 'full name', location: 'loc')
+        res      = RenderTestApiView.render(obj, {}, {no_serialization: true})
+        expected = {abbreviation: "hey", full_name: "full name", location: "loc"}
+        res.must_equal expected
+      end
+    end
+
+
+    describe '#main_object' do
     end
   end
 
