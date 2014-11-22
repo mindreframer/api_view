@@ -49,16 +49,20 @@ module ApiView
 
         elsif obj.respond_to?(:map) then
           if (options.count == 0) or !options[:cache_array] then
-            converter = ApiView.converter_for(obj.first.class, options)
+            converter = converter_for(obj.first.class, options)
             return obj.map { |o| converter.new(o).convert }
           else
             return obj.map { |o| convert(o, options) }
           end
 
         else
-          return ApiView.converter_for(obj.class, options).new(obj).convert
+          return converter_for(obj.class, options).new(obj).convert
         end
 
+      end
+
+      def converter_for(klazz, options)
+        ApiView::Registry.converter_for(klazz, options)
       end
 
       # Returns a JSON representation of the data object

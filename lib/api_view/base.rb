@@ -1,4 +1,3 @@
-
 module ApiView
 
   class Base < ::Hash
@@ -6,7 +5,7 @@ module ApiView
     class << self
 
       def for_model(model)
-        ApiView.add_model(model, self)
+        ApiView::Registry.add_model(model, self)
       end
 
       def render(obj, scope, options={})
@@ -74,5 +73,4 @@ module ApiView
     end
 
   end
-
 end
