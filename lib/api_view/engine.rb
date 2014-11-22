@@ -24,7 +24,8 @@ module ApiView
       def render(obj, scope={}, options={})
         ret = convert(obj, options)
         # skip the serialization, useful for extra-speed in unit-tests
-        return ret if (options[:skip_serialization] || @skip_serialization)
+        should_skip = options.fetch(:skip_serialization) { @skip_serialization }
+        return ret if should_skip
 
         # already converted (by default converter, for ex)
         return ret if ret.kind_of? String
