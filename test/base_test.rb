@@ -18,7 +18,7 @@ describe '#convert' do
     attributes :abbreviation, :full_name, :location
 
     def instance_convert
-      store :away_team, 'away_team'
+      field :away_team, 'away_team'
     end
   end
 

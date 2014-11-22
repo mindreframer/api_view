@@ -71,9 +71,13 @@ module ApiView
 
     # hides the details for serialization implementation
     def field(fieldname, field_object, opts={})
-      serializer = opts[:via]  || ApiView::Default
-      store fieldname, serializer.new(field_object).convert
+      serializer = opts[:via]
+      value = if serializer
+        serializer.new(field_object).convert
+      else
+        ApiView::Default.convert(field_object)
+      end
+      store fieldname, value
     end
-
   end
 end
