@@ -27,4 +27,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "multi_json"
   spec.add_development_dependency "ffaker"
   spec.add_development_dependency "pry"
+  spec.add_development_dependency "ruby-prof"
+  spec.add_development_dependency "allocation_stats"
 end
