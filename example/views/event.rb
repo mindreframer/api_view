@@ -4,8 +4,8 @@ class EventApiView < EventSummaryApiView
   attributes :share_url, :sport_name
   main_object :event
 
-  def convert_instance
-    store :box_score, event.box_score, via: BasketballBoxScoreApiView
+  def instance_convert
+    field :box_score, event.box_score, via: BasketballBoxScoreApiView
   end
 
 end
