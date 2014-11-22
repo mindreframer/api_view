@@ -35,27 +35,26 @@ module ApiView
       # @param [Object] obj
       # @return [Object]
       def convert(obj, options=nil)
-
          # already converted
-        return obj if BASIC_TYPES_LOOKUP.include?(obj.class)
+        return obj                              if BASIC_TYPES_LOOKUP.include?(obj.class)
+        return convert_hash(obj)                if obj.kind_of?(Hash)
+        return convert_enumerable(obj, options) if obj.respond_to?(:map)
+        return converter_for(obj.class, options).new(obj).convert
+      end
 
-        if obj.kind_of?(Hash) then
-          ret = {}
-          obj.each{ |k,v| ret[k] = convert(v) }
-          return ret
+      def convert_hash(obj)
+        ret = {}
+        obj.each{ |k,v| ret[k] = convert(v) }
+        ret
+      end
 
-        elsif obj.respond_to?(:map) then
-          if (options.count == 0) or !options[:cache_array] then
-            converter = converter_for(obj.first.class, options)
-            return obj.map { |o| converter.new(o).convert }
-          else
-            return obj.map { |o| convert(o, options) }
-          end
-
+      def convert_enumerable(obj, options)
+        if (options.count == 0) or !options[:cache_array] then
+          converter = converter_for(obj.first.class, options)
+          return obj.map { |o| converter.new(o).convert }
         else
-          return converter_for(obj.class, options).new(obj).convert
+          return obj.map { |o| convert(o, options) }
         end
-
       end
 
       def converter_for(klazz, options)
