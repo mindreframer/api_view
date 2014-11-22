@@ -7,6 +7,7 @@ module ApiView
                     TrueClass, FalseClass,
                     Time, Date, DateTime ]
     BASIC_TYPES_LOOKUP = BASIC_TYPES.to_set
+    DEFAULT_FORMAT = 'json'.freeze
 
     class << self
 
@@ -82,12 +83,21 @@ module ApiView
       # Returns a guess at the format in this scope
       # request_format => "xml"
       def request_format(scope)
+        format = format_from_params(scope)
+        format ||= format_from_request(scope)
+        return format if (format && self.respond_to?("to_#{format}"))
+        DEFAULT_FORMAT
+      end
+
+      def format_from_params(scope)
         params = scope.respond_to?(:params) ? scope.params : {}
-        format = params.has_key?(:format) ? params[:format] : nil
-        if request = scope.respond_to?(:request) && scope.request
-          format ||= request.format.to_sym.to_s if request.respond_to?(:format)
-        end
-        format && self.respond_to?("to_#{format}") ? format : "json"
+        params[:format]
+      end
+
+      def format_from_request(scope)
+        request = scope.respond_to?(:request) && scope.request
+        return unless request
+        request.format.to_sym.to_s if request.respond_to?(:format)
       end
 
     end
