@@ -80,7 +80,7 @@ module ApiView
       value = if serializer
         serializer.new(field_object).convert
       else
-        ApiView::Default.convert(field_object)
+        ApiView::Engine.convert(field_object)
       end
       store fieldname, value
     end
