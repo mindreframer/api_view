@@ -6,7 +6,7 @@ module ApiView
     BASIC_TYPES = [ String, Integer, Fixnum, Bignum, Float,
                     TrueClass, FalseClass,
                     Time, Date, DateTime ]
-    BASIC_TYPES_LOOKUP = BASIC_TYPES.inject({}){ |h, k| h[k] = 1; h }
+    BASIC_TYPES_LOOKUP = BASIC_TYPES.to_set
 
     class << self
 
