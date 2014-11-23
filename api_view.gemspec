@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = ApiView::VERSION
   spec.authors       = ["Roman Heinrich"]
   spec.email         = ["roman.heinrich@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{A fast and nimble object serializer}
+  spec.description   = %q{A fast and nimble object serializer}
   spec.homepage      = ""
   spec.license       = "MIT"
 
