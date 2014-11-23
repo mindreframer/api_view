@@ -11,5 +11,10 @@ module ApiView
         obj
       end
     end
+
+    # delegate to class method
+    def convert
+      self.class.convert(object)
+    end
   end
 end

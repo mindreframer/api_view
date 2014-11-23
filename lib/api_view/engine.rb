@@ -47,7 +47,7 @@ module ApiView
       #
       # @param [Object] obj
       # @return [Object]
-      def convert(obj, options=nil)
+      def convert(obj, options={})
         return obj                              if is_basic_type?(obj)
         return convert_hash(obj, options)       if obj.kind_of?(Hash)
         return convert_enumerable(obj, options) if obj.respond_to?(:map)
@@ -88,7 +88,7 @@ module ApiView
 
       # Returns an XML representation of the data object
       def to_xml(obj)
-        obj.to_xml()
+        obj.to_xml
       end
 
       # Returns a guess at the format in this scope

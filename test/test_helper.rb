@@ -4,6 +4,7 @@ require 'bundler'
 require 'coco' # code coverage, needs to be on top! see .coco.yml for more details
 Bundler.setup(:default, :development)
 require 'minitest'
+require 'mocha/mini_test'
 require "minitest/autorun"
 
 require 'minitest/reporters'
