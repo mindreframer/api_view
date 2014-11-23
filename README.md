@@ -8,7 +8,7 @@ Object serializer with
   - focus on performance
   - benchmarks are guiding the implementation
 
-The initial code was copied from `chetan` and wrapped into a gem with unit-tests and a bit more convenient API (#original-links)
+The initial code was copied from `chetan` and wrapped into a gem with unit-tests and a bit more convenient API [Original Links](#original-links)
 
 
 
