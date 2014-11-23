@@ -3,10 +3,12 @@
 [![Build Status](https://travis-ci.org/mindreframer/api_view.svg?branch=master)](http://travis-ci.org/mindreframer/api_view)
 [![codecov.io](https://codecov.io/github/mindreframer/api_view/coverage.svg?branch=master)](https://codecov.io/github/mindreframer/api_view?branch=master)
 
-a small and very performance focused serializer for complex nested objects. The initial code was taken from `chetan` and was wrapped into a gem with unit-tests and a bit more convenient API. The original links are below:
-  - http://techblog.thescore.com/benchmarking-json-generation-in-ruby/#comment-1678429451
-  - https://github.com/chetan/json_serialization_benchmark/tree/api_view
-  - https://gist.github.com/chetan/d613e8f7d45600e1ca34
+Object serializer with
+  - small codebase
+  - focus on performance
+  - benchmarks are guiding the implementation
+
+The initial code was copied from `chetan` and wrapped into a gem with unit-tests and a bit more convenient API [^original_links]
 
 
 
@@ -117,3 +119,9 @@ ApiView gives you all that and stays very small doing that.
     AMS Complex: Collection                   2.170000   0.030000   2.200000 (  2.211721)            20114       548686
     Presenters Complex: Collection            1.380000   0.010000   1.390000 (  1.389608)            34408       960494
     ApiView Complex: Collection               0.150000   0.000000   0.150000 (  0.145595)             1212       113186
+
+
+[^original_links]: See here for more details:
+  - http://techblog.thescore.com/benchmarking-json-generation-in-ruby/#comment-1678429451
+  - https://github.com/chetan/json_serialization_benchmark/tree/api_view
+  - https://gist.github.com/chetan/d613e8f7d45600e1ca34
