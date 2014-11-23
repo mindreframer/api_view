@@ -1,10 +1,14 @@
 require 'rubygems'
 require 'bundler'
+
+require 'coco' # code coverage, needs to be on top! see .coco.yml for more details
 Bundler.setup(:default, :development)
 require 'minitest'
-#require "mocha/mini_test"
 require "minitest/autorun"
-require 'api_view'
+
+require 'minitest/reporters'
+reporter_options = { color: true, slow_count: 10 }
+Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(reporter_options)]
 
 
 require 'multi_json'
@@ -12,9 +16,5 @@ require 'oj'
 Oj.mimic_JSON() # this will speedup benchmarks using #to_json
 
 
-
-# custom output
-require 'minitest/reporters'
-reporter_options = { color: true, slow_count: 10 }
-#Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(reporter_options)]
-Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(reporter_options)]
+require 'pry'
+require 'api_view'

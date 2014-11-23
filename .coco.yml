@@ -1,0 +1,7 @@
+:directories:
+- lib
+:excludes:
+- test
+- .direnv
+:single_line_report: true
+:show_link_in_terminal: true

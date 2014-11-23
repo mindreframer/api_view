@@ -30,4 +30,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "ruby-prof"
   spec.add_development_dependency "allocation_stats"
   spec.add_development_dependency "bixby-bench"
+  spec.add_development_dependency "coco"
 end
