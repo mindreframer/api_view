@@ -1,7 +1,6 @@
 require './test/test_helper'
 
 describe 'ApiView::Base' do
-
   before do
     ApiView::Engine.skip_serialization = true
   end
@@ -60,7 +59,6 @@ describe 'ApiView::Base' do
   end
 
   describe 'instance methods' do
-
     describe '#convert' do
       class ConvertSimpleApiView < ::ApiView::Base
         attributes :some_value
