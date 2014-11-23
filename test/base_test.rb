@@ -71,6 +71,21 @@ describe 'ApiView::Base' do
         ApiView::Registry.converter_for(ForModelModel).must_equal ForModelApiView
       end
     end
+
+
+    describe 'parent_attributes' do
+      parent = Class.new(ApiView::Base) do
+        attributes :a, :b
+      end
+
+      child = Class.new(parent) do
+        attributes :c
+      end
+      it "allows to use attributes from the parent class" do
+        obj = OpenStruct.new(a: 'a', b: 'b', c: 'c')
+        child.render(obj).must_equal({:a=>"a", :b=>"b", :c=>"c"})
+      end
+    end
   end
 
   describe 'instance methods' do
