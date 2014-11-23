@@ -38,23 +38,23 @@ ApiView gives you all that and stays very-very small doing that.
     -> `field` - a setter method, that also accepts `via: SomeSerializerApiView`
 
 
-    class EventApiView < EventSummaryApiView
+      class EventApiView < EventSummaryApiView
 
-      # default serializer for BoxScore, will be picked, if none other was given
-      for_model ::Event
+        # default serializer for BoxScore, will be picked, if none other was given
+        for_model ::Event
 
-      # the attributes to copy from the object
-      attributes :share_url, :sport_name
+        # the attributes to copy from the object
+        attributes :share_url, :sport_name
 
-      # the name of your main object, optional
-      main_object :event
+        # the name of your main object, optional
+        main_object :event
 
-      # the method to add additional logic + fields
-      def instance_convert
-        # just a setter method with optional serializer for that sub-object
-        field :box_score, event.box_score, via: BasketballBoxScoreApiView
+        # the method to add additional logic + fields
+        def instance_convert
+          # just a setter method with optional serializer for that sub-object
+          field :box_score, event.box_score, via: BasketballBoxScoreApiView
+        end
       end
-    end
 
 
   For more examples take a look into the `example/`-folder and run the benchmark script via `ruby example/benchmark.rb`.
