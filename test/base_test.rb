@@ -56,6 +56,21 @@ describe 'ApiView::Base' do
         res.must_equal({:location=>"some location", :hey=>"some hey"})
       end
     end
+
+    describe 'for_model' do
+      class ForModelModel
+        attr_accessor :a, :b
+      end
+      class ForModelApiView < ::ApiView::Base
+        main_object :main_obj
+        for_model ForModelModel
+        attributes :a, :b
+      end
+
+      it "registers this specific serializer with a specific model" do
+        ApiView::Registry.converter_for(ForModelModel).must_equal ForModelApiView
+      end
+    end
   end
 
   describe 'instance methods' do
