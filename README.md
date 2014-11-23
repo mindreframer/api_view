@@ -1,6 +1,5 @@
 # ApiView
 
-
 [![Build Status](https://travis-ci.org/mindreframer/api_view.svg?branch=master)](http://travis-ci.org/mindreframer/api_view)
 
 
@@ -13,9 +12,14 @@ a small and very performance focused serializer for complex nested objects. The 
 
 ### Why should you even care? Is (... insert your favourite ruby serializer ... ) not good enough?
 
-Well, all those gems are fine, if you don't care about the raw numbers and want only a nice way to convert your objects to Json or XML. With the recent advent of Single Page Application with heavy requirements for JSON APIs I'd like to squeeze all the performance that is possible while staying in the comfort of Ruby lang. And I want those serializers to be fast and easy to test.
+  - you want great performance
+  - you care about object allocations (less garbage to collect for the Ruby VM)
+  - you want **blazing** fast test suite, so that you can switch globally the serialization off and test just the shape of the resulting Hash object
+    -> no converting to JSON, then parsing JSON back and checking values on it, that sux!
+  - really small and clean codebase
+  - unit-tested and with test 100% coverage
 
-ApiView gives you all that and stays very-very small doing that.
+ApiView gives you all that and stays very small doing that.
 
 ## Installation
 
@@ -25,7 +29,6 @@ ApiView gives you all that and stays very-very small doing that.
 
     ## And then execute:
     $ bundle
-
 
 
 ## Usage
