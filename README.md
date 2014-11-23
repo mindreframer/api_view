@@ -22,7 +22,7 @@ The initial code was copied from `chetan` and wrapped into a gem with unit-tests
     -> no converting to JSON, then parsing JSON back and checking values on it, that sux!
   - really small and clean codebase
   - zero dependencies (NO ACTIVESUPPORT!), but you should use MultiJson + OJ for best performance.
-  - unit-tested and with test 100% coverage
+  - unit-tested and with 100% test coverage
 
 ApiView gives you all that and stays very small doing that.
 
