@@ -22,8 +22,8 @@ describe 'ApiView::Default' do
       end
 
       it "works with serializable_hash" do
-        res = ApiView::Default.convert({hey: 'hey'})
-        res.must_equal({:hey=>"hey"})
+        res = ApiView::Default.convert('string')
+        res.must_equal('string')
       end
     end
   end
