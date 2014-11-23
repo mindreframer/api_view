@@ -17,28 +17,57 @@ Well, all those gems are fine, if you don't care about the raw numbers and want 
 
 ApiView gives you all that and stays very-very small doing that.
 
-
-
-
 ## Installation
 
-Add this line to your application's Gemfile:
+    ## Add this line to your application's Gemfile:
+    gem 'api_view'
 
-```ruby
-gem 'api_view'
-```
 
-And then execute:
-
+    ## And then execute:
     $ bundle
 
-Or install it yourself as:
 
-    $ gem install api_view
 
 ## Usage
 
-TODO: Write usage instructions here
+  - you inherit from ApiView::Base
+  - you say, what model should be serialized by default with this serializer (optional)
+  - you specify an array of attributes, that will be copied from the object in serializer
+  - you tell how you main object is called (defaults to `object` / `obj`)
+  - you implement `instance_convert`-method for further customization of the serialization
+    -> `field` - a setter method, that also accepts `via: SomeSerializerApiView`
+
+
+    class EventApiView < EventSummaryApiView
+
+      # default serializer for BoxScore, will be picked, if none other was given
+      for_model ::Event
+
+      # the attributes to copy from the object
+      attributes :share_url, :sport_name
+
+      # the name of your main object, optional
+      main_object :event
+
+      # the method to add additional logic + fields
+      def instance_convert
+        # just a setter method with optional serializer for that sub-object
+        field :box_score, event.box_score, via: BasketballBoxScoreApiView
+      end
+    end
+
+
+  For more examples take a look into the `example/`-folder and run the benchmark script via `ruby example/benchmark.rb`.
+
+
+
+## Developement
+
+    # run tests
+    $ sh/test
+
+
+
 
 ## Contributing
 
