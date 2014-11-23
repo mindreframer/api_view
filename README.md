@@ -8,7 +8,7 @@ Object serializer with
   - focus on performance
   - benchmarks are guiding the implementation
 
-The initial code was copied from `chetan` and wrapped into a gem with unit-tests and a bit more convenient API [^original_links]
+The initial code was copied from `chetan` and wrapped into a gem with unit-tests and a bit more convenient API (#original-links)
 
 
 
@@ -121,7 +121,7 @@ ApiView gives you all that and stays very small doing that.
     ApiView Complex: Collection               0.150000   0.000000   0.150000 (  0.145595)             1212       113186
 
 
-[^original_links]: See here for more details:
+## Original links:
   - http://techblog.thescore.com/benchmarking-json-generation-in-ruby/#comment-1678429451
   - https://github.com/chetan/json_serialization_benchmark/tree/api_view
   - https://gist.github.com/chetan/d613e8f7d45600e1ca34
