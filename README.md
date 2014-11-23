@@ -7,6 +7,8 @@ Object serializer with
   - small codebase
   - focus on performance
   - benchmarks are guiding the implementation
+  - only MultiJson as sole dependency
+
 
 The initial code was copied from `chetan` and wrapped into a gem with unit-tests and a bit more convenient API ( [original links](#original-links) )
 
@@ -19,6 +21,7 @@ The initial code was copied from `chetan` and wrapped into a gem with unit-tests
   - you want **blazing** fast test suite, so that you can switch globally the serialization off and test just the shape of the resulting Hash object
     -> no converting to JSON, then parsing JSON back and checking values on it, that sux!
   - really small and clean codebase
+  - zero dependencies (NO ACTIVESUPPORT!), but you should use MultiJson + OJ for best performance.
   - unit-tested and with test 100% coverage
 
 ApiView gives you all that and stays very small doing that.
