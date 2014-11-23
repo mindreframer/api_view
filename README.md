@@ -39,7 +39,6 @@ ApiView gives you all that and stays very-very small doing that.
 
 
       class EventApiView < EventSummaryApiView
-
         # default serializer for BoxScore, will be picked, if none other was given
         for_model ::Event
 
