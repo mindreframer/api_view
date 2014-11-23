@@ -21,7 +21,7 @@ describe 'ApiView::Default' do
         res.must_equal({:field=>"serializable_hash"})
       end
 
-      it "works with serializable_hash" do
+      it "works with basic types" do
         res = ApiView::Default.convert('string')
         res.must_equal('string')
       end

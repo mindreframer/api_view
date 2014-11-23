@@ -39,7 +39,4 @@ describe 'ApiView::Engine' do
       end
     end
   end
-
-  describe 'instance methods' do
-  end
 end
