@@ -8,7 +8,7 @@ Object serializer with
   - focus on performance
   - benchmarks are guiding the implementation
 
-The initial code was copied from `chetan` and wrapped into a gem with unit-tests and a bit more convenient API [Original Links](#original-links)
+The initial code was copied from `chetan` and wrapped into a gem with unit-tests and a bit more convenient API ( [original links](#original-links) )
 
 
 
@@ -75,7 +75,7 @@ ApiView gives you all that and stays very small doing that.
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/api_view/fork )
+1. Fork it ( https://github.com/mindframer/api_view/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
