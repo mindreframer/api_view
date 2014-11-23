@@ -1,5 +1,9 @@
 # ApiView
 
+
+[![Build Status](https://travis-ci.org/mindreframer/api_view.svg?branch=master)](http://travis-ci.org/mindreframer/api_view)
+
+
 a small and very performance focused serializer for complex nested objects. The initial code was taken from `chetan` and was wrapped into a gem with unit-tests and a bit more convenient API. The original links are below:
   - http://techblog.thescore.com/benchmarking-json-generation-in-ruby/#comment-1678429451
   - https://github.com/chetan/json_serialization_benchmark/tree/api_view
