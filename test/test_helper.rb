@@ -1,7 +1,18 @@
 require 'rubygems'
 require 'bundler'
 
-require 'coco' # code coverage, needs to be on top! see .coco.yml for more details
+#require 'coco' # code coverage, needs to be on top! see .coco.yml for more details
+
+require 'simplecov'
+SimpleCov.start do
+  add_filter "/test/"
+  add_filter "/.direnv/"
+end
+if ENV['CI']=='true'
+  require 'codecov'
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
+
 Bundler.setup(:default, :development)
 require 'minitest'
 require 'mocha/mini_test'
