@@ -64,6 +64,32 @@ ApiView gives you all that and stays very small doing that.
         end
 
 
+
+
+        ## a more complete example
+        class Event
+          attr_accessor :game_date, :game_type, :status
+        end
+
+        class EventSerializer < ::ApiView::Base
+          attributes :game_date, :game_type, :status
+          main_object :event
+          for_model ::Event
+
+          # this is your chance to do extra work
+          def instance_convert
+            field :away_team,  "any value here"
+          end
+        end
+
+        e = Event.new; e.game_date = Time.now; e.game_type = 'baseball'; e.status = 'won'
+        EventSerializer.render(e)
+
+        # because we configured the mapping from serializer to a Ruby class, this also works:
+        ApiView::Engine.render(e)
+
+
+
   For more examples take a look into the `example/`-folder and run the benchmark script via `ruby example/benchmark.rb`.
 
 
